@@ -29,7 +29,7 @@ func Register(r *gin.Engine) {
 	userRouter.POST("/info", utils.HandlerFunc(app.userAdapter.GetUserInfo))
 	userRouter.POST("/login", utils.HandlerFunc(app.userAdapter.Login))
 	userRouter.GET("/test", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"test": "wangzhibin"})
+		c.JSON(http.StatusOK, gin.H{"test": "wangzhibin123"})
 	})
 
 }
