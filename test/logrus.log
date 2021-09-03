@@ -1,0 +1,6 @@
+time="2021-07-31T21:22:49+08:00" level=info msg="A group of walrus emerges from the ocean" animal=walrus size=10
+{"animal":"walrus","level":"info","msg":"A group of walrus emerges from the ocean","size":10,"time":"2021-07-31T21:26:01+08:00"}
+{"animal":"walrus","level":"info","msg":"A group of walrus emerges from the ocean","size":10,"time":"2021-07-31T21:26:35+08:00"}
+{"animal":"walrus","level":"info","msg":"A group of walrus emerges from the ocean","size":10,"time":"2021-07-31T21:26:35+08:00"}
+{"level":"warning","msg":"The group's number increased tremendously!","number":122,"omg":true,"time":"2021-07-31T21:26:35+08:00"}
+{"level":"fatal","msg":"The ice breaks!","number":100,"omg":true,"time":"2021-07-31T21:26:35+08:00"}
