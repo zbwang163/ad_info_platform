@@ -12,7 +12,7 @@ var (
 	AccountClient accountRpc.AccountServiceClient
 	ContentClient contentRpc.ContentServiceClient
 	rpcConfig     = map[string]string{
-		"ad.info.account_server": "ad.info.account_server:50001",
+		"ad.info.account_server": "account-service:50001",
 		"ad.info.content_server": "ad.info.content_server:50002",
 	}
 )
