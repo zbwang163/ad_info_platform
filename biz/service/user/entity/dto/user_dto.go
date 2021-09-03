@@ -17,3 +17,8 @@ var RoleUrlMap = map[int64]string{
 	1: "",
 	2: "",
 }
+
+type LoginDto struct {
+	SessionId  string `json:"session_id"`
+	CoreUserId int64  `json:"core_user_id"`
+}

@@ -1,2 +1,2 @@
 #!/bin/bash
-./output/ad_platform_info
+./output/ad_info_platform

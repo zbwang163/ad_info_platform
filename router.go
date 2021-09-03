@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"my_codes/ad_platform_info/biz/adapter"
-	"my_codes/ad_platform_info/common/middleware"
-	"my_codes/ad_platform_info/common/utils"
+	"github.com/zbwang163/ad_info_platform/biz/adapter"
+	"github.com/zbwang163/ad_info_platform/common/middleware"
+	"github.com/zbwang163/ad_info_platform/common/utils"
 )
 
 type Adapter struct {
@@ -18,11 +18,13 @@ func NewAdapter() *Adapter {
 }
 
 func Register(r *gin.Engine) {
-	g := r.Group("/ad_platform_info")
-	g.Use(middleware.UserInfoMiddleware, middleware.LogIdMiddleware, middleware.LoggerMiddleware, middleware.ResponseMiddleware)
+	g := r.Group("/ad_info_platform")
+	//g.Use(middleware.UserInfoMiddleware, middleware.LogIdMiddleware, middleware.LoggerMiddleware, middleware.ResponseMiddleware)
+	g.Use(middleware.ResponseMiddleware)
 
 	app := NewAdapter()
 
 	userRouter := g.Group("/user")
 	userRouter.POST("/info", utils.HandlerFunc(app.userAdapter.GetUserInfo))
+	userRouter.POST("/login", utils.HandlerFunc(app.userAdapter.Login))
 }

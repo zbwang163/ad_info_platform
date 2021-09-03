@@ -2,10 +2,10 @@ package user
 
 import (
 	"github.com/gin-gonic/gin"
-	"my_codes/ad_platform_info/biz/service/user/entity/dto"
-	"my_codes/ad_platform_info/biz/service/user/factory"
-	"my_codes/ad_platform_info/biz/service/user/repo"
-	"my_codes/ad_platform_info/common/biz_error"
+	"github.com/zbwang163/ad_common/biz_error"
+	"github.com/zbwang163/ad_info_platform/biz/service/user/entity/dto"
+	"github.com/zbwang163/ad_info_platform/biz/service/user/factory"
+	"github.com/zbwang163/ad_info_platform/biz/service/user/repo"
 )
 
 type ServiceOfUser struct {
@@ -45,3 +45,9 @@ func (s ServiceOfUser) getUserWorkCodeMap(c *gin.Context) (map[string]string, *b
 	}
 	return result, nil
 }
+
+//
+//func (s ServiceOfUser) Login(c *gin.Context, userName, password, capture string)(*dto.LoginDto, *biz_error.BizError){
+//
+//	userPo,bizError := s.adUserInfoRepo.QueryOne(c, map[string]interface{}{"nickname":userName,"password":password})
+//}

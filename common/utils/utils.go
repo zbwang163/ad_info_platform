@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-basic/uuid"
-	error2 "my_codes/ad_platform_info/common/biz_error"
-	"my_codes/ad_platform_info/common/consts"
-	"my_codes/ad_platform_info/common/utils/env"
+	"github.com/zbwang163/ad_common/biz_error"
+	"github.com/zbwang163/ad_common/env"
+	"github.com/zbwang163/ad_info_platform/common/consts"
+
 	"net"
 	"net/http"
 	"time"
@@ -17,7 +18,9 @@ type Response struct {
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
 }
-type Handler func(*gin.Context) (interface{}, *error2.BizError)
+
+type DTO interface{}
+type Handler func(*gin.Context) (DTO, *biz_error.BizError)
 
 func HandlerFunc(f Handler) gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -27,7 +30,7 @@ func HandlerFunc(f Handler) gin.HandlerFunc {
 			c.JSON(http.StatusOK, Response{0, "success", data})
 		} else {
 			if env.IsDev() {
-				c.JSON(http.StatusOK, Response{bizError.Code, bizError.Message, bizError.Error})
+				c.JSON(http.StatusOK, Response{bizError.Code, bizError.Message, bizError.ErrorMsg})
 			} else {
 				c.JSON(http.StatusOK, Response{bizError.Code, bizError.Message, ""})
 			}
@@ -35,6 +38,7 @@ func HandlerFunc(f Handler) gin.HandlerFunc {
 	}
 }
 
+// GetLocalIp 获取本机的io
 func GetLocalIp() string {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
@@ -52,12 +56,18 @@ func GetLocalIp() string {
 	return ""
 }
 
+// GenerateLogId 生成log id
 func GenerateLogId() string {
 	t := time.Now().Format("200601021504")
 	bytes, _ := uuid.GenerateRandomBytes(11)
 	return fmt.Sprintf("%v%x", t, bytes)
 }
 
+// GetCtxLogId 从context中获取log id
 func GetCtxLogId(c *gin.Context) string {
-	return c.Value(consts.LogId).(string)
+	if logId, ok := c.Value(consts.LogId).(string); ok {
+		return logId
+	} else {
+		return ""
+	}
 }

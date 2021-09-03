@@ -1,4 +1,4 @@
 #!/bin/bash
 go build
-mv ad_platform_info ./output/ad_platform_info
+mv ad_info_platform ./output/ad_info_platform
 

@@ -1,9 +1,9 @@
 package factory
 
 import (
-	"my_codes/ad_platform_info/biz/service/user/entity/dto"
-	"my_codes/ad_platform_info/biz/service/user/entity/po"
-	"my_codes/ad_platform_info/common/consts"
+	"github.com/zbwang163/ad_info_platform/biz/service/user/entity/dto"
+	"github.com/zbwang163/ad_info_platform/biz/service/user/entity/po"
+	"github.com/zbwang163/ad_info_platform/common/consts"
 	"strings"
 )
 

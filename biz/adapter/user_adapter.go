@@ -2,10 +2,12 @@ package adapter
 
 import (
 	"github.com/gin-gonic/gin"
-	"my_codes/ad_platform_info/biz/adapter/query"
-	"my_codes/ad_platform_info/biz/service/user"
-	user_dto "my_codes/ad_platform_info/biz/service/user/entity/dto"
-	"my_codes/ad_platform_info/common/biz_error"
+	"github.com/zbwang163/ad_common/biz_error"
+	contentRpc "github.com/zbwang163/ad_content_overpass"
+	"github.com/zbwang163/ad_info_platform/biz/adapter/query"
+	"github.com/zbwang163/ad_info_platform/biz/service/user"
+	"github.com/zbwang163/ad_info_platform/common/clients"
+	"github.com/zbwang163/ad_info_platform/common/utils"
 )
 
 type UserAdapter struct {
@@ -18,11 +20,24 @@ func NewUserAdapter() *UserAdapter {
 	}
 }
 
-func (a UserAdapter) GetUserInfo(c *gin.Context) (interface{}, *biz_error.BizError) {
-	var result *user_dto.UserDto
-	param, bizError := query.BindGetUserInfoQuery(c)
-	if param == nil {
-		return result, bizError
+func (a UserAdapter) GetUserInfo(c *gin.Context) (utils.DTO, *biz_error.BizError) {
+	params := &query.GetUserInfoQuery{}
+	bizError := params.BindParams(c)
+	if bizError != nil {
+		return nil, bizError
 	}
-	return a.userService.GetUserDtoByCoreUserId(c, param.CoreUserId)
+	return a.userService.GetUserDtoByCoreUserId(c, params.CoreUserId)
+}
+
+func (a UserAdapter) Login(c *gin.Context) (utils.DTO, *biz_error.BizError) {
+	params := &query.LoginParams{}
+	bizError := params.BindParams(c)
+	if bizError != nil {
+		return nil, bizError
+	}
+	resp, err := clients.ContentClient.Search(c, &contentRpc.SearchRequest{})
+	if err != nil {
+		return nil, biz_error.NewResourceError(err)
+	}
+	return resp, nil
 }
