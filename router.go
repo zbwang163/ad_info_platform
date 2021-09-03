@@ -5,6 +5,7 @@ import (
 	"github.com/zbwang163/ad_info_platform/biz/adapter"
 	"github.com/zbwang163/ad_info_platform/common/middleware"
 	"github.com/zbwang163/ad_info_platform/common/utils"
+	"net/http"
 )
 
 type Adapter struct {
@@ -27,4 +28,8 @@ func Register(r *gin.Engine) {
 	userRouter := g.Group("/user")
 	userRouter.POST("/info", utils.HandlerFunc(app.userAdapter.GetUserInfo))
 	userRouter.POST("/login", utils.HandlerFunc(app.userAdapter.Login))
+	userRouter.GET("/test", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"test": "wangzhibin"})
+	})
+
 }

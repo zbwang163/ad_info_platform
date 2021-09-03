@@ -2,8 +2,8 @@ package adapter
 
 import (
 	"github.com/gin-gonic/gin"
+	accountRpc "github.com/zbwang163/ad_account_overpass"
 	"github.com/zbwang163/ad_common/biz_error"
-	contentRpc "github.com/zbwang163/ad_content_overpass"
 	"github.com/zbwang163/ad_info_platform/biz/adapter/query"
 	"github.com/zbwang163/ad_info_platform/biz/service/user"
 	"github.com/zbwang163/ad_info_platform/common/clients"
@@ -35,7 +35,7 @@ func (a UserAdapter) Login(c *gin.Context) (utils.DTO, *biz_error.BizError) {
 	if bizError != nil {
 		return nil, bizError
 	}
-	resp, err := clients.ContentClient.Search(c, &contentRpc.SearchRequest{})
+	resp, err := clients.AccountClient.Login(c, &accountRpc.LoginRequest{})
 	if err != nil {
 		return nil, biz_error.NewResourceError(err)
 	}

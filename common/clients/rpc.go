@@ -12,8 +12,8 @@ var (
 	AccountClient accountRpc.AccountServiceClient
 	ContentClient contentRpc.ContentServiceClient
 	rpcConfig     = map[string]string{
-		"ad.info.account_server": "localhost:50001",
-		"ad.info.content_server": "localhost:50002",
+		"ad.info.account_server": "ad.info.account_server:50001",
+		"ad.info.content_server": "ad.info.content_server:50002",
 	}
 )
 
@@ -23,7 +23,7 @@ func init() {
 }
 
 func InitRpc(psm string) {
-	conn, err := grpc.Dial(rpcConfig[psm], grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(rpcConfig[psm], grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
